@@ -2,25 +2,46 @@
 
 set -e
 
+sudo apt-get update -y
+sudo apt-get upgrade -y
+
+sudo apt-get install -y htop curl wget vim tmux parallel speedometer git curl wget python3 python3-pip exuberant-ctags
+
+git clone https://github.com/magicmonty/bash-git-prompt.git ~/.bash-git-prompt --depth=1
+
+sudo curl https://gist.githubusercontent.com/user01/ea1937bafe920f66d1455f24e65ee27d/raw/646cf86f912b95098f3a29af99a7bb4d18d437e1/.bash_aliases > ~/.bash_aliases
+sudo curl https://gist.githubusercontent.com/user01/ea1937bafe920f66d1455f24e65ee27d/raw/646cf86f912b95098f3a29af99a7bb4d18d437e1/.tmux.conf > ~/.tmux.conf
+sudo curl https://gist.githubusercontent.com/user01/ea1937bafe920f66d1455f24e65ee27d/raw/646cf86f912b95098f3a29af99a7bb4d18d437e1/.vimrc > ~/.vimrc
+sudo curl https://gist.githubusercontent.com/user01/1bc8cc966eda0703ba18c698805ce6ff/raw/65af8e253e786f324e1773092a6d04a9ca9e1d6c/.gitignore > ~/.gitignore
+sudo curl https://gist.githubusercontent.com/user01/a8b0a90be98a71b642b589dc1641ce92/raw/36412a4db97e6094da2561ec0cca8c20fb2297fa/.gitconfig > ~/.gitconfig
+mkdir -p ~/.atom
+sudo curl https://gist.githubusercontent.com/user01/c5312dce75734a2451ca606ac53de0b4/raw/2a50e2336afa2b067c46835896af796d3ff48a67/keymap.cson > ~/.atom/keymap.cson
+
+
 # Make config directory for Neovim's init.vim
 echo '[*] Preparing Neovim config directory ...'
 mkdir -p ~/.config/nvim
 
 # Install nvim (and its dependencies: pip3, git), Python 3 and ctags (for tagbar)
 echo '[*] App installing Neovim and its dependencies (Python 3 and git), and dependencies for tagbar (exuberant-ctags) ...'
-sudo apt update
-sudo apt install neovim python3 python3-pip git exuberant-ctags -y
+wget https://github.com/neovim/neovim/releases/download/v0.3.7/nvim.appimage
+chmod u+x nvim.appimage && ./nvim.appimage
+
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh
+bash ~/miniconda.sh -b -p ~/.miniconda
+eval "$(~/.miniconda/bin/conda shell.bash hook)"
+conda init
+source ~/.bashrc
 
 # Install virtualenv to containerize dependencies
 echo '[*] Pip installing virtualenv to containerize Neovim dependencies (instead of installing them onto your system) ...'
-python3 -m pip install virtualenv
-python3 -m virtualenv -p python3 ~/.config/nvim/env
+conda create --yes --name nvim python=3.7
+conda activate nvim
 
 # Install pip modules for Neovim within the virtual environment created
 echo '[*] Activating virtualenv and pip installing Neovim (for Python plugin support), libraries for async autocompletion support (jedi, psutil, setproctitle), and library for pep8-style formatting (yapf) ...'
-source ~/.config/nvim/env/bin/activate
 pip install neovim==0.2.6 jedi psutil setproctitle yapf
-deactivate
+conda deactivate
 
 # Install vim-plug plugin manager
 echo '[*] Downloading vim-plug, the best minimalistic vim plugin manager ...'
