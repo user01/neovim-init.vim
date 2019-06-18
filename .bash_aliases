@@ -26,6 +26,11 @@ function exitstatus {
 
 PROMPT_COMMAND=exitstatus
 
+# Set config variables first
+if [ -f "$HOME/.bash-git-prompt/gitprompt.sh" ]; then
+    GIT_PROMPT_ONLY_IN_REPO=1
+    source $HOME/.bash-git-prompt/gitprompt.sh
+fi
 
 export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
