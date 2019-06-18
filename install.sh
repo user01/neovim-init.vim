@@ -9,13 +9,12 @@ sudo apt-get install -y htop curl wget vim tmux parallel speedometer git curl wg
 
 git clone https://github.com/magicmonty/bash-git-prompt.git ~/.bash-git-prompt --depth=1
 
-sudo curl https://gist.githubusercontent.com/user01/ea1937bafe920f66d1455f24e65ee27d/raw/646cf86f912b95098f3a29af99a7bb4d18d437e1/.bash_aliases > ~/.bash_aliases
-sudo curl https://gist.githubusercontent.com/user01/ea1937bafe920f66d1455f24e65ee27d/raw/646cf86f912b95098f3a29af99a7bb4d18d437e1/.tmux.conf > ~/.tmux.conf
-sudo curl https://gist.githubusercontent.com/user01/ea1937bafe920f66d1455f24e65ee27d/raw/646cf86f912b95098f3a29af99a7bb4d18d437e1/.vimrc > ~/.vimrc
-sudo curl https://gist.githubusercontent.com/user01/1bc8cc966eda0703ba18c698805ce6ff/raw/65af8e253e786f324e1773092a6d04a9ca9e1d6c/.gitignore > ~/.gitignore
-sudo curl https://gist.githubusercontent.com/user01/a8b0a90be98a71b642b589dc1641ce92/raw/36412a4db97e6094da2561ec0cca8c20fb2297fa/.gitconfig > ~/.gitconfig
+cat .bash_aliases >> ~/.bash_aliases
+cat .tmux.conf > ~/.tmux.conf
+cat .gitignore.user > ~/.gitignore
+cat .gitconfig.user > ~/.gitconfig
 mkdir -p ~/.atom
-sudo curl https://gist.githubusercontent.com/user01/c5312dce75734a2451ca606ac53de0b4/raw/2a50e2336afa2b067c46835896af796d3ff48a67/keymap.cson > ~/.atom/keymap.cson
+cat keymap.cson > ~/.atom/keymap.cson
 
 
 # Make config directory for Neovim's init.vim
