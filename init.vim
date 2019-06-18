@@ -54,7 +54,7 @@ Plug 'dkarter/bullets.vim'
 call plug#end()
 
 """ Python3 VirtualEnv
-let g:python3_host_prog = expand('~/.config/nvim/env/bin/python')
+let g:python3_host_prog = expand('~/.miniconda/envs/nvim/bin/python')
 
 """ Coloring
 syntax on
